@@ -15,3 +15,17 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/about-us', [HomeController::class, 'about'])->name('about');
+Route::get('/contact-us', [HomeController::class, 'contact'])->name('contact');
+Route::get('/all-course', [HomeController::class, 'course'])->name('course');
+Route::get('/login-registration', [HomeController::class, 'login'])->name('login-registration');
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
